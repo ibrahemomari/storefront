@@ -1,7 +1,7 @@
 # storefront
 
 ---
-[Pull Request 1]()
+[Pull Request 1](https://github.com/ibrahemomari/storefront/pull/2)
 
 
 
