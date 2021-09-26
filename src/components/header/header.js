@@ -28,7 +28,7 @@ export default function Header(props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             News
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">Cart</Button>
         </Toolbar>
       </AppBar>
     </Box>

@@ -6,7 +6,7 @@ const ActiveCategory = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  ActiveCategory: state.category.activeCategory,
+  ActiveCategory: state.categories.activeCategory,
 });
 
 export default connect(mapStateToProps)(ActiveCategory);
