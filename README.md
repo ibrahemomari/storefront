@@ -9,10 +9,7 @@
 
 [CodeSandbox phase 1]()
 
----
 
-
-[Backend Repo](https://github.com/ibrahemomari/todo-backend)
 
 ---
 
