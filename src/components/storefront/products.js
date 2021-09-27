@@ -1,14 +1,15 @@
 import React from "react";
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
+import { addProduct, inventoryAction } from "../../store/actions";
 
 const useStyle = makeStyles((theme) => ({
   cardGrid: {
@@ -57,7 +58,18 @@ const Products = (props) => {
                     <Button size="small" color="primary">
                       View
                     </Button>
-                    <Button size="small" color="primary">
+                    <Button
+                      size="small"
+                      color="primary"
+                      onClick={(inventory) => {
+                        if (product.inventory) {
+                          props.addProduct(product);
+                          props.inventoryAction(product);
+                        } else {
+                          alert("out of stook");
+                        }
+                      }}
+                    >
                       Add to Cart
                     </Button>
                   </CardActions>
@@ -71,12 +83,10 @@ const Products = (props) => {
   );
 };
 
-const mapStateToProps = (state) => (
-  // console.log("stateeeee",state)
-  {
+const mapStateToProps = (state) => ({
   products: state.products.products,
   active: state.categories.activeCategory,
-}
-);
+});
+const mapDispatchToProps = { addProduct, inventoryAction };
 
-export default connect(mapStateToProps)(Products);
+export default connect(mapStateToProps, mapDispatchToProps)(Products);
