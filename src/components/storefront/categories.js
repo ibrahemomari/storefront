@@ -1,4 +1,5 @@
 import React from "react";
+import "../../style/categories.scss"
 import { Breadcrumbs, Link } from "@mui/material";
 
 import { connect } from "react-redux";
@@ -6,7 +7,7 @@ import { activatedCategory, reset } from "../../store/categories";
 
 const Categories = (props) => {
   return (
-    <section>
+    <section className="categories-container">
       <Breadcrumbs>
         {/* <Link color="inherit" onClick={props.reset()}>
           ALL
