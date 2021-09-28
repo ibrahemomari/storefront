@@ -9,19 +9,21 @@ const cartReducer = (state = initialState, action) => {
   switch (type) {
     case "ADD":
       const products = state.cart.map((product) => product.name);
-      if (!products.includes(payload.name)) {
-        let count = state.count + 1;
-        return { cart: [...state.cart, payload], show: true, count: count };
-      }
-      return { cart: state.cart, show: true, count: state.count };
+      
+        let counts = state.count + 1;
+        return { cart: [...state.cart, payload], show: true, count: counts };
+      
+      // return { cart: state.cart, show: true, count: state.count };
 
     case "DELETE":
-      const product = state.cart.filter((product) => {
-        return product.name !== payload.name;
+      const product = state.cart.filter((product,idx) => {
+        return idx !== payload.idx;
       });
       let count = state.count - 1;
-      return { cart: [...product], show: true, count: count };
+      return { cart: product, show:state.show, count: count };
 
+      case "SHOW":
+        return {cart:state.cart,show:payload,count:state.count}
     default:
       return state;
   }

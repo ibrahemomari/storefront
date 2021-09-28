@@ -13,8 +13,8 @@ export default function Footer(props) {
   return (
       <>
      
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1 }} className="footer">
+      <AppBar position="relative" color="default">
         <Toolbar>
           <IconButton
             size="large"

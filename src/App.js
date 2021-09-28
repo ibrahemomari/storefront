@@ -1,4 +1,5 @@
 import React from "react";
+import "./style/app.scss";
 import CategoriesComponent from "./components/storefront/categories";
 import Footer from "./components/footer/footer";
 import Header from "./components/header/header";

@@ -1,6 +1,9 @@
 import mansaf from "../Images/jordanian-mansaf.jpg";
 import iphone13 from "../Images/Iphone13.jpg";
 import pizza from "../Images/pizza.jpg";
+import macBook from "../Images/macBook.jpg";
+import AppleWatch from "../Images/AppleWatch.jpg"
+import AppleTV from "../Images/AppleTV.jpg"
 let initailState = {
   products: [
     {
@@ -31,6 +34,37 @@ let initailState = {
       inventory: 10,
       img: iphone13,
     },
+    {
+      category: "ELECTRONICS",
+      name: "MacBook Air 13 inc",
+      description: "Apple",
+      ingredients:
+        "M1 chip with 8-core CPU and 7-core GPU, 8GB, 256GB, English/Arabic 2020",
+      price: 1700,
+      inventory: 15,
+      img: macBook,
+    },
+    {
+      category: "ELECTRONICS",
+      name: "AppleWatch",
+      description: "Gold Aluminum Case with Sport Band",
+      ingredients:
+        "Band fits 140–210mm wrists.",
+      price: 200,
+      inventory: 10,
+      img: AppleWatch,
+    },
+    {
+      category: "ELECTRONICS",
+      name: "AppleTV",
+      description: "Apple TV 4K has movies",
+      ingredients:
+        "shows, live TV and sports, and gaming — in 4K High Frame Rate HDR. Get Apple TV+ free for 1 year. Free, no-contact delivery.",
+      price: 150,
+      inventory: 20,
+      img: AppleTV,
+    },
+    
   ],
 };
 
@@ -58,7 +92,7 @@ const productsReducer = (state = initailState, action) => {
 
     case "DELETE":
       state.products = state.products.map((product) => {
-        if (product.name === payload.name) {
+        if (product.name === payload.product.name) {
           product.inventory = product.inventory + 1;
 
           return product;
