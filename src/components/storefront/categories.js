@@ -3,7 +3,7 @@ import "../../style/categories.scss"
 import { Breadcrumbs, Link } from "@mui/material";
 
 import { connect } from "react-redux";
-import { activatedCategory, reset } from "../../store/categories";
+import { activatedCategory, reset } from "../../store/actions";
 
 const Categories = (props) => {
   return (

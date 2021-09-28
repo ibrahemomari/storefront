@@ -11,21 +11,22 @@ const SimpleCart = (props) => {
       <section className="simplecart-conitaner">
         <If condition={() => props.cart.length !== 0}>
           <ui>
-            {props.cart.map((el, idx) => {
-              return (
-                <li key={idx}>
-                  <span>{el.name}</span>
-                  <Button
-                    color="secondary"
-                    onClick={() => {
-                      props.deleteProduct(el);
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </li>
-              );
-            })}
+            {props.cart.show &&
+              props.cart.cart.map((el, idx) => {
+                return (
+                  <li key={idx}>
+                    <span>{el.name}</span>
+                    <Button
+                      color="secondary"
+                      onClick={() => {
+                        props.deleteProduct(el, idx);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </li>
+                );
+              })}
           </ui>
         </If>
       </section>
@@ -34,7 +35,7 @@ const SimpleCart = (props) => {
 };
 
 const mapStateToprops = (state) => {
-  return { cart: state.cart.cart };
+  return { cart: state.cart };
 };
 const mapDispatchToProps = { deleteProduct };
 

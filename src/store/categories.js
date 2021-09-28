@@ -20,7 +20,9 @@ const categoriesReducer = (state = initailState, action) => {
     case "ACTIVE":
       let categories = state.categories;
       let active = payload;
-      return { categories, activeCategory: active };
+      console.log("acteee",active);
+
+      return { categories, activeCategory: active,};
 
     case "RESET":
       return initailState;
