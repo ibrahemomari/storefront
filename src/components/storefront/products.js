@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import SuperAgent from "superagent";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -9,7 +10,12 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
-import { addProduct, inventoryAction } from "../../store/actions";
+import {
+  addProduct,
+  inventoryAction,
+  activatedCategory,
+  productDetails,
+} from "../../store/actions";
 import "../../style/product.scss";
 const useStyle = makeStyles((theme) => ({
   cardGrid: {
@@ -31,17 +37,44 @@ const useStyle = makeStyles((theme) => ({
 
 const Products = (props) => {
   const classes = useStyle();
+  const [productAPI, setproductAPI] = useState([]);
+  useEffect(() => {
+    props.activatedCategory();
+    async function fetchData(params) {
+      try {
+        const data = await SuperAgent.get(
+          "https://api-server-ps.herokuapp.com/product"
+        );
+        setproductAPI(data.body);
+        console.log("hiiii", productAPI);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    fetchData();
+  }, []);
+
+  async function addToCart(body) {
+    try {
+      let res = await SuperAgent.post(
+        "https://api-server-ps.herokuapp.com/cartItem"
+      ).send(body);
+      console.log("res", res);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
   return (
     <Container className={classes.cardGrid} maxWidth="md">
       <Grid container spacing={4}>
-        {props.products.map((product) => {
+        {productAPI.map((product) => {
           if (props.active === product.category) {
             return (
-              <Grid item key={product.name} xs={12} sm={6} md={4}>
+              <Grid item key={product.item} xs={12} sm={6} md={4}>
                 <Card className={classes.card} className="prodect-card">
                   <CardMedia
                     className={classes.cardMedia}
-                    image={product.img}
+                    image={product.image}
                     title={product.name}
                   />
                   <CardContent className={classes.cardContent}>
@@ -54,24 +87,70 @@ const Products = (props) => {
                       Inventory: {product.inventory}
                       <br />
                       <hr />
-                      Ingredients: {product.ingredients}
+                      Description: {product.description}
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" color="primary">
-                      View
-                    </Button>
+                  <a href="/details">
+                      <Button
+                        size="small"
+                        color="primary"
+                        onClick={() => props.productDetails(product)}
+                      >
+                        
+                        View
+                        
+                      </Button>
+                      </a>
                     <Button
                       size="small"
                       color="primary"
-                      onClick={(inventory) => {
-                        if (product.inventory) {
-                          props.addProduct(product);
-                          props.inventoryAction(product);
-                        } else {
-                          alert("out of stook");
-                        }
-                      }}
+                      onClick={() => addToCart(product)}
+                    >
+                      Add to Cart
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            );
+          } else if (props.active == "ALL") {
+            return (
+              <Grid item key={product.item} xs={12} sm={6} md={4}>
+                <Card className={classes.card} className="prodect-card">
+                  <CardMedia
+                    className={classes.cardMedia}
+                    image={product.image}
+                    title={product.name}
+                  />
+                  <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {product.name}
+                    </Typography>
+                    <Typography>
+                      Category: {product.category} <br />
+                      Price: {product.price} Jd <br />
+                      Inventory: {product.inventory}
+                      <br />
+                      <hr />
+                      Description: {product.description}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                  <a href="/details">
+                      <Button
+                        size="small"
+                        color="primary"
+                        onClick={() => props.productDetails(product)}
+                      >
+                        
+                        View
+                        
+                      </Button>
+                      </a>
+                    <Button
+                      size="small"
+                      color="primary"
+                      onClick={() => addToCart(product)}
                     >
                       Add to Cart
                     </Button>
@@ -90,6 +169,11 @@ const mapStateToProps = (state) => ({
   products: state.products.products,
   active: state.categories.activeCategory,
 });
-const mapDispatchToProps = { addProduct, inventoryAction };
+const mapDispatchToProps = {
+  addProduct,
+  inventoryAction,
+  activatedCategory,
+  productDetails,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

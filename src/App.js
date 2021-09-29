@@ -6,16 +6,30 @@ import Header from "./components/header/header";
 import Products from "./components/storefront/products";
 import ActiveCategory from "./components/storefront/current-category";
 import Simplecart from "./components/cart/simplecart";
-import {BrowserRouter,Route} from "react-router-dom";
+import Details from "./components/products/details";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import AddressForm from "./components/cart/checkout";
 function App(props) {
   return (
     <div>
-      <Header />
-      <Simplecart/>
-      <CategoriesComponent />
-      <ActiveCategory/>
-      <Products />
-      <Footer />
+      <BrowserRouter>
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <Simplecart />
+            <CategoriesComponent />
+            <ActiveCategory />
+            <Products />
+          </Route>
+          <Route exact path="/cart">
+            <AddressForm />
+          </Route>
+          <Route exact path="/details">
+            <Details />
+          </Route>
+        </Switch>
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }
