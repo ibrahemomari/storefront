@@ -2,8 +2,8 @@ import mansaf from "../Images/jordanian-mansaf.jpg";
 import iphone13 from "../Images/Iphone13.jpg";
 import pizza from "../Images/pizza.jpg";
 import macBook from "../Images/macBook.jpg";
-import AppleWatch from "../Images/AppleWatch.jpg"
-import AppleTV from "../Images/AppleTV.jpg"
+import AppleWatch from "../Images/AppleWatch.jpg";
+import AppleTV from "../Images/AppleTV.jpg";
 let initailState = {
   products: [
     {
@@ -19,7 +19,8 @@ let initailState = {
       category: "FOOD",
       name: "Pizza",
       description: "Pepperoni Pizza",
-      ingredients: "cured pork and beef seasoned with paprika or other chili pepper",
+      ingredients:
+        "cured pork and beef seasoned with paprika or other chili pepper",
       price: 10.99,
       inventory: 5,
       img: pizza,
@@ -48,8 +49,7 @@ let initailState = {
       category: "ELECTRONICS",
       name: "AppleWatch",
       description: "Gold Aluminum Case with Sport Band",
-      ingredients:
-        "Band fits 140–210mm wrists.",
+      ingredients: "Band fits 140–210mm wrists.",
       price: 200,
       inventory: 10,
       img: AppleWatch,
@@ -64,7 +64,6 @@ let initailState = {
       inventory: 20,
       img: AppleTV,
     },
-    
   ],
 };
 
@@ -100,6 +99,11 @@ const productsReducer = (state = initailState, action) => {
         return product;
       });
       return { ...state };
+
+    case "VIEW":
+      let data = payload;
+      localStorage.setItem("item",JSON.stringify(data));
+      return  data ;
     default:
       return state;
   }

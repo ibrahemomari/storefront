@@ -66,7 +66,7 @@
 export const activatedCategory = (name) => {
   return {
     type: "ACTIVE",
-    payload: name,
+    payload: name=="FOOD"||name=="ELECTRONICS"?name:"ALL",
   };
 };
 
@@ -108,6 +108,13 @@ export const inventoryAction = (product) => {
 export const getCart = (data) => {
   return {
     type: "GETCART",
+    payload: data,
+  };
+};
+
+export const productDetails = (data) => {
+  return {
+    type: "VIEW",
     payload: data,
   };
 };

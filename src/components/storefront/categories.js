@@ -9,9 +9,9 @@ const Categories = (props) => {
   return (
     <section className="categories-container">
       <Breadcrumbs>
-        {/* <Link color="inherit" onClick={props.reset()}>
+        <Link color="inherit" onClick={()=>props.activatedCategory("ALL")}>
           ALL
-        </Link> */}
+        </Link>
         <Link color="inherit" onClick={()=>props.activatedCategory("FOOD")}>
           FOOD
         </Link>
